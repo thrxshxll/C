@@ -3,7 +3,7 @@
 #include "header.h"
 
 
-No_list* noCreate(int value){
+No_list* no_list(int value){
     No_list* newNode = malloc(sizeof(No_list));
 
     if(newNode != NULL){
@@ -13,6 +13,12 @@ No_list* noCreate(int value){
         return newNode;
     }return 0;
 }
+
+
+
+ /**
+ * Linked list interfaces definitions
+ * */
 
 List* list_create(){
     List* newList = malloc(sizeof(List));
@@ -25,16 +31,12 @@ List* list_create(){
 }
 
 
- /**
- * Linked list interfaces definitions
- * */
-
 int list_append(List* xlist, int value){
     /**
      * Adds a new node at end of the passed list.
      * */
 
-    No_list* new = noCreate(value);
+    No_list* new = no_list(value);
 
     if(new != NULL){
         if(xlist->start == NULL){
@@ -130,6 +132,7 @@ void list_print(List* xlist){
 }
 
 
+
 /**
  * Stack interfaces definition
  * */
@@ -143,7 +146,7 @@ Stack* stack_create(){
 
     if(new != NULL){
         new->top = NULL;
-        new->size = 0;
+        new->qty = 0;
         return new;
     }else{
         puts("error in alocate memory");
@@ -156,7 +159,10 @@ void stack_destroy(Stack* stack){
      * Delete all contents from passed stack and deallocate memory to it.
      * */
 
-    stack_pop(stack);
+
+    while(!stack_isEmpty(stack)){
+        stack_pop(stack);
+    }
     free(stack);
 }
 
@@ -172,7 +178,7 @@ void stack_push(Stack* stack, int value){
         newTop->data = value;
         newTop->next = stack->top;
         stack->top = newTop;
-        ++stack->size;
+        stack->qty++;
     }else{
         puts("error in alocate memory");
     }
@@ -187,10 +193,11 @@ int stack_pop(Stack* stack){
     if(!stack_isEmpty(stack)){
 
         No_stack* temp = stack->top;
+        No_stack* hold = stack->top;
         stack->top = temp->next;
         int dataTemp = temp->data;
         free(temp);
-        --stack->size;
+        stack->qty--;
         return dataTemp;
     }return -1;
 }
@@ -213,8 +220,9 @@ void stack_print(Stack* stack){
     if(!stack_isEmpty(stack)){
 
         No_stack* curr = stack->top;
+        printf("top -> ");
         while(curr != NULL){
-            printf("%d --> ", curr->data);
+            printf("%d | ", curr->data);
             curr = curr->next;
         }puts("NULL");
     }

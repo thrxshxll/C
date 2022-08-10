@@ -4,18 +4,17 @@
 
 int main(void){
 
-    Stack* stk;
+    Stack* stk = stack_create();
 
     for(unsigned int a=0; a<8; a++){
         stack_push(stk, a);
     }
 
-    stack_print(stk);
-
     while(!stack_isEmpty(stk)){
         stack_pop(stk);
         stack_print(stk);
-    }puts("NULL");
+    }
 
+    stack_destroy(stk);
     return 0;
 }

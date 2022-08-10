@@ -17,13 +17,13 @@ struct linkedListNode_t{
  * Linked list type defintion
  * */
 
-struct linkedList{
+struct linkedList_t{
     struct linkedListNode_t* start;
     int qty;
 };
 
 typedef struct linkedListNode_t No_list;
-typedef struct linkedList List;
+typedef struct linkedList_t List;
 
 
 /**
@@ -36,6 +36,7 @@ int list_destroy(List*);
 int list_size(List*);
 void list_print(List*);
 int list_isEmpty(List*);
+
 
 
 /**
@@ -53,7 +54,7 @@ struct stackNode_t {
  * */
 struct stack_t {
     struct stackNode_t* top;
-    int size;
+    int qty;
 };
 
 typedef struct stackNode_t No_stack;
